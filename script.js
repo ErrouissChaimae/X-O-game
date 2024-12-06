@@ -29,18 +29,7 @@ const checkWin = () => {
 
 const checkDraw = () => gameState.every(cell => cell !== '');
 
-/*const updateStatus = () => {
-    if (checkWin()) {
-        statusText.textContent = `Player ${currentPlayer} wins! 🎉`;
-        gameActive = false;
-    } else if (checkDraw()) {
-        statusText.textContent = "It's a draw! 🤝";
-        gameActive = false;
-    } else {
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        statusText.textContent = `${currentPlayer}'s Turn`;
-    }
-};*/
+
 
 const handleCellClick = (e) => {
     const cellIndex = e.target.dataset.index;
@@ -69,48 +58,40 @@ restartButton.addEventListener('click', restartGame);
 
 const boomContainer = document.getElementById('boom-container');
 
-// Fonction pour créer l'effet "Boom"
 const createBoomEffect = () => {
-    // Nettoie le conteneur
     boomContainer.innerHTML = '';
 
-    // Crée 20 particules pour l'explosion
     for (let i = 0; i < 20; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
         
-        // Définit une direction aléatoire pour chaque particule
-        const angle = Math.random() * 2 * Math.PI; // Angle aléatoire
-        const distance = Math.random() * 200 + 50; // Distance aléatoire (entre 50px et 250px)
-        const dx = Math.cos(angle) * distance; // Déplacement X
-        const dy = Math.sin(angle) * distance; // Déplacement Y
+        const angle = Math.random() * 2 * Math.PI; 
+        const distance = Math.random() * 200 + 50; 
+        const dx = Math.cos(angle) * distance; 
+        const dy = Math.sin(angle) * distance; 
 
         particle.style.setProperty('--dx', `${dx}px`);
         particle.style.setProperty('--dy', `${dy}px`);
 
-        // Couleur aléatoire
         particle.style.backgroundColor = randomColor();
 
         boomContainer.appendChild(particle);
     }
 
-    // Supprime les particules après 1 seconde
     setTimeout(() => {
         boomContainer.innerHTML = '';
     }, 1000);
 };
 
-// Fonction pour générer des couleurs aléatoires
 const randomColor = () => {
     const colors = ['#FFD700', '#FF4500', '#4A90E2', '#9013FE', '#50E3C2'];
     return colors[Math.floor(Math.random() * colors.length)];
 };
 
-// Appelle la fonction "Boom" quand un joueur gagne
 const updateStatus = () => {
     if (checkWin()) {
         statusText.textContent = `Player ${currentPlayer} wins! 🎉`;
-        createBoomEffect(); // Lance l'explosion
+        createBoomEffect(); 
         gameActive = false;
     } else if (checkDraw()) {
         statusText.textContent = "It's a draw! 🤝";
